@@ -11,6 +11,7 @@ namespace Api.Controllers
     [Route("")]
     public class ApiController : ControllerBase
     {
+
         protected IActionResult Problem(List<Error> errors)
         {
             if (errors.All(error => error.Type == ErrorType.Validation))
