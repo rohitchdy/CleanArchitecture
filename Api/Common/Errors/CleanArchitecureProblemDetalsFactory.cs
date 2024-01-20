@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
+using Serilog;
 using System.Diagnostics;
 
 namespace Api.Errors;
@@ -29,6 +30,7 @@ public class CleanArchitecureProblemDetalsFactory : ProblemDetailsFactory
             problemValidationDetails.Type ??= clientErrorData.Link;
             problemValidationDetails.Extensions["traceId"] = httpContext.TraceIdentifier;
         }
+        Log.Error("Validation Error: {@ProblemValidationDetails} ", problemValidationDetails);
         return problemValidationDetails;
     }
     public override ProblemDetails CreateProblemDetails(HttpContext httpContext, int? statusCode = null, string? title = null, string? type = null, string? detail = null, string? instance = null)
@@ -67,5 +69,7 @@ public class CleanArchitecureProblemDetalsFactory : ProblemDetailsFactory
 
             }
         }
+        Log.Error("Error: {@ProblemDetails}", problemDetails);
+
     }
 }
