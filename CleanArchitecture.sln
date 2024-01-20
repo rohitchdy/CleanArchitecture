@@ -1,27 +1,27 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{D5402CBF-152B-4432-8FB9-CD71E4931777}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{D5402CBF-152B-4432-8FB9-CD71E4931777}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{47846018-8F42-4673-8000-582E427FE712}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{47846018-8F42-4673-8000-582E427FE712}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{E2DB9CF1-34DA-461B-9138-F1E6FB32B41E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{E2DB9CF1-34DA-461B-9138-F1E6FB32B41E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{AE3FF7E4-C9F5-46D6-8620-B46A2EE5DC68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{AE3FF7E4-C9F5-46D6-8620-B46A2EE5DC68}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{13076A8C-FE80-4C0D-B42E-C5763DC60772}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8C901C5F-3F04-40AD-8855-CD9B90362035}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "tests\Api\Api.csproj", "{9C41E3FF-BC58-420A-AF23-00B19EEA435D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "tests\Api\Api.csproj", "{9C41E3FF-BC58-420A-AF23-00B19EEA435D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "tests\Application\Application.csproj", "{E66DD8B8-D577-4FE8-AE8A-65494A7128AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "tests\Application\Application.csproj", "{E66DD8B8-D577-4FE8-AE8A-65494A7128AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "tests\Domain\Domain.csproj", "{BF7C2FFA-48D2-4A71-A74E-BF37FA48D027}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "tests\Domain\Domain.csproj", "{BF7C2FFA-48D2-4A71-A74E-BF37FA48D027}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructue", "tests\Infrastructue\Infrastructue.csproj", "{F985BC0D-8CC9-49B6-A509-BC1B8AA27DAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructue", "tests\Infrastructue\Infrastructue.csproj", "{F985BC0D-8CC9-49B6-A509-BC1B8AA27DAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
