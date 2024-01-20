@@ -1,0 +1,56 @@
+  /*
+  Below is the configuration implementation for Serilog, Do not change it unless necessary
+  */
+{
+  "Serilog": {
+    "Using": [
+      "Serilog.Sinks.Console",
+      "Serilog.Sinks.File",
+      //"Serilog.Sinks.Seq"
+    ],
+    "MinimumLevel": {
+      "Default": "Information",
+      "Override": { // Overriding the Microsoft's logging level help us to log out custom messages only and runtime environment will log only when some runtime Error occurs.
+        "Microsoft": "Error"
+      },
+      "System": "Warning"
+    },
+    "WriteTo": [
+      {
+        "Name": "Console",
+        "Args": {
+          "outputTemplate": "[{Timestamp:HH:mm:ss} {SourceContext} [{Level}] {Message}{NewLine}{Exception}"
+        }
+      },
+      {
+        "Name": "File",
+        "Args": {
+          "path": "Logs/Application-.log",
+          "rollingInterval": "Day",
+          "outputTemplate": "[{Timestamp:HH:mm:ss} {SourceContext} [{Level}] {Message}{NewLine}{Exception}",
+          "formatter": {
+            "type": "Serilog.Formatting.Compact.CompactJsonFormatter, Serilog.Formatting.Compact"
+          }
+        }
+      },
+      //{
+      //  "Name": "Seq", // Add Seq sink configuration
+      //  "Args": {
+      //    "serverUrl": "http://your-seq-server-url",
+      //    "apiKey": "your-api-key", // Add your API key if required
+      //    "compact": true,
+      //    "controlLevelSwitch": true,
+      //    "messageTemplate": "[{Timestamp:HH:mm:ss} {SourceContext} [{Level}] {Message}{NewLine}{Exception}"
+      //  }
+      //}
+    ],
+    "Enrich": [
+      "FromLogContext",
+      "WithMachineName",
+      "WithThreadId"
+    ],
+    "Properties": {
+      "Application": "Application"
+    }
+  }
+}

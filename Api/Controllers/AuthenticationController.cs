@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
     [AllowAnonymous]
     public class AuthenticationController : ApiController
     {
