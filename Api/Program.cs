@@ -1,9 +1,8 @@
 using Api;
-using Api.Errors;
 using Application;
 using Infrastructure;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.Extensions.Options;
+using Infrastructure.DatabaseContext;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
@@ -75,6 +74,10 @@ try
 
     Log.Information("Starting Application");
     var app = builder.Build();
+
+    //var scope = app.Services.CreateScope();
+    //var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+    //dataContext.Database.Migrate();
 
 
     if (app.Environment.IsDevelopment())
