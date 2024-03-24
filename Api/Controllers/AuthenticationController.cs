@@ -1,7 +1,7 @@
-﻿using Api.Authentication;
+﻿using Api.Requests.Authentication;
 using Application.Commands.Register.RegisterCommand;
 using Application.Queries.Login;
-using Application.Services.Authentication.Common;
+using Application.Authentication.Common;
 using ErrorOr;
 using MapsterMapper;
 using MediatR;

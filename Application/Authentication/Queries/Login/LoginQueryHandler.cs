@@ -1,6 +1,6 @@
 ﻿using Application.Common.Interfaces.Authentication;
 using Application.Common.Interfaces.Persistence;
-using Application.Services.Authentication.Common;
+using Application.Authentication.Common;
 using ErrorOr;
 using Domain.Entities;
 using Domain.Common.Error;
@@ -11,10 +11,12 @@ namespace Application.Queries.Login;
 public class LoginQueryHandler : IRequestHandler<LoginQuery, ErrorOr<AuthenticationResult>>
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
+    private readonly IPasswordHasher _passwordHasher;
     private readonly IUserRepository _userRepository;
-    public LoginQueryHandler(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository)
+    public LoginQueryHandler(IJwtTokenGenerator jwtTokenGenerator, IPasswordHasher passwordHasher, IUserRepository userRepository)
     {
         _jwtTokenGenerator = jwtTokenGenerator;
+        _passwordHasher = passwordHasher;
         _userRepository = userRepository;
     }
     public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
@@ -24,7 +26,8 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, ErrorOr<Authenticat
         {
             return Errors.Authentication.InvalidCrediential;
         }
-        if (user.Password != query.Password)
+
+        if (!_passwordHasher.VerifyPassword(query.Password, user.Password))
         {
             return Errors.Authentication.InvalidCrediential;
         }

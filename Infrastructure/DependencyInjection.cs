@@ -24,8 +24,10 @@ public static class DependencyInjection
         services.AddAuth(configuration);
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddDatabaseProvider(configuration);
         services.AddIdentity();
+        services.AddPasswordHash(configuration);
         return services;
     }
     public static IServiceCollection AddAuth(this IServiceCollection services, ConfigurationManager configuration)
@@ -68,7 +70,16 @@ public static class DependencyInjection
 
     public static IServiceCollection AddIdentity(this IServiceCollection services)
     {
-        services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<DataContext>();
+        services.AddDbContext<DataContext>();
+        return services;
+    }
+
+    public static IServiceCollection AddPasswordHash(this IServiceCollection services, ConfigurationManager configuration)
+    {
+        var passwordHashSettings = new PasswordHashSettings();
+        configuration.Bind(PasswordHashSettings.SectionName, passwordHashSettings);
+        services.AddSingleton(Options.Create(passwordHashSettings));
+        services.AddSingleton<IPasswordHasher, PasswordHasher>();
         return services;
     }
 }

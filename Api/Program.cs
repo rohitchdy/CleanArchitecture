@@ -75,9 +75,9 @@ try
     Log.Information("Starting Application");
     var app = builder.Build();
 
-    //var scope = app.Services.CreateScope();
-    //var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
-    //dataContext.Database.Migrate();
+    var scope = app.Services.CreateScope();
+    var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+    dataContext.Database.Migrate();
 
 
     if (app.Environment.IsDevelopment())

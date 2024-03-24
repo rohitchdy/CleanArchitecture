@@ -1,28 +1,44 @@
 ﻿using Application.Common.Interfaces.Persistence;
-using Azure.Core;
 using Domain.Entities;
-using Microsoft.AspNetCore.Identity;
+using Infrastructure.DatabaseContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence;
 
 public class UserRepository : IUserRepository
 {
-    private readonly UserManager<User> _userManager;
+    private readonly DataContext _dataContext;
 
-    public UserRepository(UserManager<User> userManager)
+    public UserRepository(DataContext dataContext)
     {
-        _userManager = userManager;
+        _dataContext = dataContext;
     }
 
-    private static readonly List<User> _users = new();
     public void AddUser(User user)
     {
-        //_users.Add(user);
-        _userManager.CreateAsync(user, user.Password);
+        _dataContext.Users.Add(user);
+        _dataContext.SaveChanges();
     }
 
     public User? GetUserByEmail(string email)
     {
-        return _users.SingleOrDefault(u => u.Email == email);
+        return _dataContext.Users.SingleOrDefault(u => u.Email == email);
+    }
+
+    public User? GetUserById(Guid userId)
+    {
+        return _dataContext.Users.SingleOrDefault(u => u.Id == userId);
+    }
+
+    public List<User> GetUsers()
+    {
+        return _dataContext.Users.ToList();
+    }
+
+    public User? UpdateUser(User user)
+    {
+        _dataContext.Entry(user).State = EntityState.Modified;
+        _dataContext.SaveChanges();
+        return user;
     }
 }

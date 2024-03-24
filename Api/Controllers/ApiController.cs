@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace Api.Controllers
 {
     [ApiController]
-    [Authorize]
     public class ApiController : ControllerBase
     {
         protected ActionResult Problem(List<Error> errors)
@@ -17,7 +16,7 @@ namespace Api.Controllers
                 return Problem();
             }
 
-            if (errors.All(error => error.Type == ErrorType.Validation))
+            if (errors.TrueForAll(error => error.Type == ErrorType.Validation))
             {
                 return ValidationProblem(errors);
             }

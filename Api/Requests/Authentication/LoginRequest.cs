@@ -1,4 +1,4 @@
-﻿namespace Api.Authentication;
+﻿namespace Api.Requests.Authentication;
 
 public record LoginRequest
 (

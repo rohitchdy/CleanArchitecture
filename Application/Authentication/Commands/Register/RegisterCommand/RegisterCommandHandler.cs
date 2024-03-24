@@ -1,7 +1,7 @@
 ﻿
 using Application.Common.Interfaces.Authentication;
 using Application.Common.Interfaces.Persistence;
-using Application.Services.Authentication.Common;
+using Application.Authentication.Common;
 using Domain.Entities;
 using ErrorOr;
 using MediatR;
@@ -12,10 +12,12 @@ namespace Application.Commands.Register.RegisterCommand;
 public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<AuthenticationResult>>
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
+    private readonly IPasswordHasher _passwordHasher;
     private readonly IUserRepository _userRepository;
-    public RegisterCommandHandler(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository)
+    public RegisterCommandHandler(IJwtTokenGenerator jwtTokenGenerator, IPasswordHasher passwordHasher, IUserRepository userRepository)
     {
         _jwtTokenGenerator = jwtTokenGenerator;
+        _passwordHasher = passwordHasher;
         _userRepository = userRepository;
     }
     public async Task<ErrorOr<AuthenticationResult>> Handle(RegisterCommand command, CancellationToken cancellationToken)
@@ -31,7 +33,8 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<A
             FirstName = command.FirstName,
             LastName = command.LastName,
             Email = command.Email,
-            Password = command.Password
+            Password = _passwordHasher.GenerateHashPassword(command.Password),
+            ContactNumber = command.ContactNumber
         };
         _userRepository.AddUser(user);
 
