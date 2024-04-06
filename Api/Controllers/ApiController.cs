@@ -3,6 +3,7 @@ using ErrorOr;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Serilog;
 
 namespace Api.Controllers
 {
@@ -20,6 +21,8 @@ namespace Api.Controllers
             {
                 return ValidationProblem(errors);
             }
+
+            Log.Error(@"Errors:", errors[0]);
             return Problem(errors[0]);
         }
 

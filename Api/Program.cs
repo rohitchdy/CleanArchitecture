@@ -2,8 +2,8 @@ using Api;
 using Application;
 using Infrastructure;
 using Infrastructure.DatabaseContext;
+using Infrastructure.Middlewares;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 using Serilog;
 
 try
@@ -21,51 +21,7 @@ try
         );
 
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen(config =>
-    {
-        config.SwaggerDoc("v1", new OpenApiInfo
-        {
-            Title = "Clean Architecture APIs",
-            Version = "v1",
-            Description = "To test api from swagger",
-            Contact = new OpenApiContact
-            {
-                Name = "API Support",
-                Url = new Uri("https://www.api.com/support"),
-                Email = "supportapi@example.com"
-            },
-            TermsOfService = new Uri("https://www.api.com/termsandservices"),
 
-        });
-
-        config.AddSecurityDefinition(name: "Bearer", securityScheme: new OpenApiSecurityScheme
-        {
-            Name = "Authorization",
-            Description = "Enter the Bearer Authorization string as following: `Bearer Generated-JWT-Token`",
-            In = ParameterLocation.Header,
-            Type = SecuritySchemeType.ApiKey,
-            Scheme = "Bearer"
-        });
-        config.AddSecurityRequirement(new OpenApiSecurityRequirement()
-      {
-        {
-          new OpenApiSecurityScheme
-          {
-            Reference = new OpenApiReference
-              {
-                Type = ReferenceType.SecurityScheme,
-                Id = "Bearer"
-              },
-              Scheme = "oauth2",
-              Name = "Bearer",
-              In = ParameterLocation.Header,
-
-            },
-            new List<string>()
-          }
-        });
-
-    });
     builder.Services
         .AddPresentation()
         .AddApplication()
@@ -79,15 +35,19 @@ try
     var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
     dataContext.Database.Migrate();
 
+    app.UseSession();
+
 
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
         app.UseSwaggerUI();
+        app.UseMiddleware<JwtTokenMiddleware>();
     }
-
     app.UseSerilogRequestLogging();
     app.UseHttpsRedirection();
+
+
     app.UseAuthentication();
 
     app.UseAuthorization();

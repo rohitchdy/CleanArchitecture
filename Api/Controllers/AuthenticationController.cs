@@ -47,6 +47,7 @@ namespace Api.Controllers
             {
                 return Problem(statusCode: StatusCodes.Status401Unauthorized, title: authResult.FirstError.Description);
             }
+            HttpContext.Session.SetString("JWTToken", authResult.Value.Token);
 
             return authResult.Match(
                 authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),

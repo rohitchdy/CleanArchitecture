@@ -14,6 +14,7 @@ using Infrastructure.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Domain.Entities;
+using Infrastructure.Extensions;
 
 namespace Infrastructure;
 
@@ -21,6 +22,9 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
     {
+        services.AddSwaggerConfiguration();
+        services.AddSessionServiceConfiguration();
+        services.AddDistributedMemoryCache();
         services.AddAuth(configuration);
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.AddScoped<IUserRepository, UserRepository>();

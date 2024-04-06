@@ -55,7 +55,7 @@ namespace Api.Controllers
         public async Task<IActionResult> GetRole(Guid roleId)
         {
             await Task.CompletedTask;
-            var query = _mapper.Map<GetRoleByIdQuery>(roleId);
+            var query = new GetRoleByIdQuery(roleId);
             ErrorOr<RoleResult> roleResponse = await _mediator.Send(query);
             return roleResponse.Match(
                 roleResult => Ok(_mapper.Map<RoleResponse>(roleResult)),
