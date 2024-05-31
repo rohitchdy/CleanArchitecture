@@ -1,5 +1,6 @@
 ﻿using Api.Requests.Role;
 using Application.Roles.Commands.CreateRole;
+using Application.Roles.Commands.UpdateRole;
 using Application.Roles.Common;
 using Application.Roles.Queries;
 using Domain.Entities;
@@ -57,6 +58,32 @@ namespace Api.Controllers
             await Task.CompletedTask;
             var query = new GetRoleByIdQuery(roleId);
             ErrorOr<RoleResult> roleResponse = await _mediator.Send(query);
+            return roleResponse.Match(
+                roleResult => Ok(_mapper.Map<RoleResponse>(roleResult)),
+                errors => Problem(errors)
+                );
+        }
+
+        [HttpPut]
+        [Route("Role")]
+        public async Task<IActionResult> UpdateRole([FromBody] UpdateRoleRequest updateRoleRequest)
+        {
+            await Task.CompletedTask;
+            var command = _mapper.Map<UpdateRoleCommand>(updateRoleRequest);
+            ErrorOr<RoleResult> roleResponse = await _mediator.Send(command);
+            return roleResponse.Match(
+                roleResult => Ok(_mapper.Map<RoleResponse>(roleResult)),
+                errors => Problem(errors)
+                );
+        }
+
+        [HttpPut]
+        [Route("ActivateRole")]
+        public async Task<IActionResult> ActivateRole([FromBody] UpdateRoleRequest updateRoleRequest)
+        {
+            await Task.CompletedTask;
+            var command = new ActivateDeactivateRoleCommand(updateRoleRequest.RoleId, updateRoleRequest.IsActive);
+            ErrorOr<RoleResult> roleResponse = await _mediator.Send(command);
             return roleResponse.Match(
                 roleResult => Ok(_mapper.Map<RoleResponse>(roleResult)),
                 errors => Problem(errors)

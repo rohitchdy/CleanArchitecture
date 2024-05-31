@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 
 namespace Application.Roles.Commands.CreateRole;
-public class CreateRoleValidator : AbstractValidator<CreateRoleCommand>
+public class UpdateRoleValidator : AbstractValidator<CreateRoleCommand>
 {
-    public CreateRoleValidator()
+    public UpdateRoleValidator()
     {
         RuleFor(x => x.Name).NotEmpty();
     }

@@ -51,5 +51,7 @@ public static class SwaggerServiceExtensions
                     }
                 });
         });
+
+        services.AddSwaggerGenNewtonsoftSupport();
     }
 }

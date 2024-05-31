@@ -7,4 +7,5 @@ public interface IRoleRepository
     Role? GetRoleById(Guid roleId);
     List<Role> GetRoles();
     Role? UpdateRole(Role role);
+    Role? ActivateDeactivateRole(Guid roleId, bool flag);
 }

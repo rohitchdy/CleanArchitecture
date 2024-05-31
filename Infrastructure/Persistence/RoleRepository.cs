@@ -40,4 +40,15 @@ public class RoleRepository : IRoleRepository
         _dataContext.SaveChanges();
         return role;
     }
+
+    public Role? ActivateDeactivateRole(Guid roleId, bool flag)
+    {
+        var role = _dataContext.Roles.FirstOrDefault(r => r.Id == roleId);
+        if (role != null)
+        {
+            role.IsActive = flag;
+            _dataContext.SaveChanges();
+        }
+        return role;
+    }
 }

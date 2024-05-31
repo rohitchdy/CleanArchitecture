@@ -7,11 +7,11 @@ using ErrorOr;
 using MediatR;
 
 namespace Application.Roles.Commands.CreateRole;
-public class CreateCommandHandler : IRequestHandler<CreateRoleCommand, ErrorOr<RoleResult>>
+public class UpdateRoleCommandHandler : IRequestHandler<CreateRoleCommand, ErrorOr<RoleResult>>
 {
     private readonly IRoleRepository _roleRepository;
 
-    public CreateCommandHandler(IRoleRepository roleRepository)
+    public UpdateRoleCommandHandler(IRoleRepository roleRepository)
     {
         _roleRepository = roleRepository;
     }
