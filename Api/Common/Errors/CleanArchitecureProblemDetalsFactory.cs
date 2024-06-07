@@ -68,8 +68,8 @@ public class CleanArchitecureProblemDetalsFactory : ProblemDetailsFactory
                 problemDetails.Extensions.Add("errorCodes", errors.Select(e => e.Code));
 
             }
+            Log.Error("Error: {@ProblemDetails}", problemDetails);
         }
-        Log.Error("Error: {@ProblemDetails}", problemDetails);
 
     }
 }

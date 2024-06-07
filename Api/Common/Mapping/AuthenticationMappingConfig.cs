@@ -1,5 +1,5 @@
-﻿using Api.Authentication;
-using Application.Services.Authentication.Common;
+﻿using Api.Requests.Authentication;
+using Application.Authentication.Common;
 using Mapster;
 
 namespace Api.Common.Mapping;

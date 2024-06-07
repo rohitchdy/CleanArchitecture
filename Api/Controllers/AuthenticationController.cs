@@ -1,7 +1,7 @@
-﻿using Api.Authentication;
+﻿using Api.Requests.Authentication;
 using Application.Commands.Register.RegisterCommand;
 using Application.Queries.Login;
-using Application.Services.Authentication.Common;
+using Application.Authentication.Common;
 using ErrorOr;
 using MapsterMapper;
 using MediatR;
@@ -47,6 +47,7 @@ namespace Api.Controllers
             {
                 return Problem(statusCode: StatusCodes.Status401Unauthorized, title: authResult.FirstError.Description);
             }
+            HttpContext.Session.SetString("JWTToken", authResult.Value.Token);
 
             return authResult.Match(
                 authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),

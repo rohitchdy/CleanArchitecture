@@ -1,10 +1,13 @@
-﻿namespace Domain.Entities;
+﻿using Microsoft.AspNetCore.Identity;
+namespace Domain.Entities;
 
 public class User
 {
     public Guid Id { get; set; } = Guid.NewGuid();
-    public string FirstName { get; set; } = null!;
-    public string LastName { get; set; } = null!;
-    public string Email { get; set; } = null!;
-    public string Password { get; set; } = null!;
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
+    public string ContactNumber { get; set; } = string.Empty;
+    public bool IsActive { get; set; }
 }

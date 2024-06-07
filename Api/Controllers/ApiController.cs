@@ -3,11 +3,11 @@ using ErrorOr;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Serilog;
 
 namespace Api.Controllers
 {
     [ApiController]
-    [Authorize]
     public class ApiController : ControllerBase
     {
         protected ActionResult Problem(List<Error> errors)
@@ -17,10 +17,12 @@ namespace Api.Controllers
                 return Problem();
             }
 
-            if (errors.All(error => error.Type == ErrorType.Validation))
+            if (errors.TrueForAll(error => error.Type == ErrorType.Validation))
             {
                 return ValidationProblem(errors);
             }
+
+            Log.Error(@"Errors:", errors[0]);
             return Problem(errors[0]);
         }
 

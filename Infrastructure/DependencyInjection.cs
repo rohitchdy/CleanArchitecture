@@ -10,6 +10,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Infrastructure.DatabaseContext;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Domain.Entities;
+using Infrastructure.Extensions;
 
 namespace Infrastructure;
 
@@ -17,9 +22,16 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
     {
+        services.AddSwaggerConfiguration();
+        services.AddSessionServiceConfiguration();
+        services.AddDistributedMemoryCache();
         services.AddAuth(configuration);
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IRoleRepository, RoleRepository>();
+        services.AddDatabaseProvider(configuration);
+        services.AddIdentity();
+        services.AddPasswordHash(configuration);
         return services;
     }
     public static IServiceCollection AddAuth(this IServiceCollection services, ConfigurationManager configuration)
@@ -38,6 +50,40 @@ public static class DependencyInjection
             ValidAudience = jwtSettings.Audience,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
         });
+        return services;
+    }
+
+    public static IServiceCollection AddDatabaseProvider(this IServiceCollection services, ConfigurationManager configuration)
+    {
+        switch (configuration.GetConnectionString("Provider"))
+        {
+            case "SqlServer":
+                services.AddDbContext<DataContext, SqlServerDataContext>();
+                break;
+
+            case "Sqlite":
+                services.AddDbContext<DataContext, SqliteDataContext>();
+                break;
+
+            case "PostgreSql":
+                services.AddDbContext<DataContext, PostgreSqlDataContext>();
+                break;
+        }
+        return services;
+    }
+
+    public static IServiceCollection AddIdentity(this IServiceCollection services)
+    {
+        services.AddDbContext<DataContext>();
+        return services;
+    }
+
+    public static IServiceCollection AddPasswordHash(this IServiceCollection services, ConfigurationManager configuration)
+    {
+        var passwordHashSettings = new PasswordHashSettings();
+        configuration.Bind(PasswordHashSettings.SectionName, passwordHashSettings);
+        services.AddSingleton(Options.Create(passwordHashSettings));
+        services.AddSingleton<IPasswordHasher, PasswordHasher>();
         return services;
     }
 }
