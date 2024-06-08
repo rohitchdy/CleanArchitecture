@@ -29,6 +29,6 @@ public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand, Error
         existingRole.Name = command.Name;
         _roleRepository.UpdateRole(existingRole);
 
-        return new RoleResult(existingRole.Id, existingRole.Name, existingRole.IsAdmin, existingRole.IsActive);
+        return new RoleResult(existingRole.RoleId, existingRole.Name, existingRole.IsAdmin, existingRole.IsActive);
     }
 }

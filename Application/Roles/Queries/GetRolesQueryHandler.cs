@@ -22,7 +22,7 @@ public class GetRolesQueryHandler : IRequestHandler<GetRolesQuery, ErrorOr<List<
         List<RoleResult> rolesResult = new();
         foreach (var role in roles)
         {
-            var roleResult = new RoleResult(role.Id, role.Name, role.IsAdmin, role.IsActive);
+            var roleResult = new RoleResult(role.RoleId, role.Name, role.IsAdmin, role.IsActive);
             rolesResult.Add(roleResult);
         }
         return rolesResult;

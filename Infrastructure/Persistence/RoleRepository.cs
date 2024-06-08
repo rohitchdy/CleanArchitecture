@@ -21,7 +21,7 @@ public class RoleRepository : IRoleRepository
 
     public Role? GetRoleById(Guid roleId)
     {
-        return _dataContext.Roles.SingleOrDefault(r => r.Id == roleId);
+        return _dataContext.Roles.SingleOrDefault(r => r.RoleId == roleId);
     }
 
     public Role? GetRoleByName(string name)
@@ -43,7 +43,7 @@ public class RoleRepository : IRoleRepository
 
     public Role? ActivateDeactivateRole(Guid roleId, bool flag)
     {
-        var role = _dataContext.Roles.FirstOrDefault(r => r.Id == roleId);
+        var role = _dataContext.Roles.FirstOrDefault(r => r.RoleId == roleId);
         if (role != null)
         {
             role.IsActive = flag;

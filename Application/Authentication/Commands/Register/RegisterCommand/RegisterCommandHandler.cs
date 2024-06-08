@@ -34,7 +34,8 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<A
             LastName = command.LastName,
             Email = command.Email,
             Password = _passwordHasher.GenerateHashPassword(command.Password),
-            ContactNumber = command.ContactNumber
+            ContactNumber = command.ContactNumber,
+            UserRoles = new List<UserRoles>()
         };
         _userRepository.AddUser(user);
 

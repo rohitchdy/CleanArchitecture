@@ -27,7 +27,7 @@ public class UserRepository : IUserRepository
 
     public User? GetUserById(Guid userId)
     {
-        return _dataContext.Users.SingleOrDefault(u => u.Id == userId);
+        return _dataContext.Users.SingleOrDefault(u => u.UserId == userId);
     }
 
     public List<User> GetUsers()

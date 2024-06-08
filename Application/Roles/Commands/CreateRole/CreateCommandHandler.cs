@@ -27,10 +27,11 @@ public class UpdateRoleCommandHandler : IRequestHandler<CreateRoleCommand, Error
         var role = new Role
         {
             Name = command.Name,
-            IsActive = true
+            IsActive = true,
+            UserRoles = new List<UserRoles>()
         };
         _roleRepository.AddRole(role);
 
-        return new RoleResult(role.Id, role.Name, role.IsAdmin, role.IsActive);
+        return new RoleResult(role.RoleId, role.Name, role.IsAdmin, role.IsActive);
     }
 }

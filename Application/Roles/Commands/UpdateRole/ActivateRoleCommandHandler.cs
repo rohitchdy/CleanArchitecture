@@ -27,6 +27,6 @@ internal class ActivateRoleCommandHandler : IRequestHandler<ActivateDeactivateRo
 
         var role = _roleRepository.ActivateDeactivateRole(command.RoleId, command.Flag);
 
-        return new RoleResult(role.Id, role.Name, role.IsAdmin, role.IsActive);
+        return new RoleResult(role.RoleId, role.Name, role.IsAdmin, role.IsActive);
     }
 }
