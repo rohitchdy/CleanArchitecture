@@ -7,8 +7,8 @@ public class District
     public bool IsActive { get; set; }
     public Guid ProvinceId { get; set; }
     public required Province Province { get; set; }
-    public required List<Municipality> Municipalities { get; set; }
-    public required List<Student> Students { get; set; }
-    public required List<Employee> Employees { get; set; }
+    public List<Municipality>? Municipalities { get; set; }
+    public List<Student>? Students { get; set; }
+    public List<Employee>? Employees { get; set; }
 
 }

@@ -10,5 +10,7 @@ public class Subject
     public bool IsActive { get; set; }
     public Guid ClassId { get; set; }
     public required Class Class { get; set; }
-    public required List<TeacherSubjects> TeacherSubjects { get; set; }
+    public List<TeacherSubjects>? TeacherSubjects { get; set; }
+    public Exam? Exam { get; set; }
+
 }

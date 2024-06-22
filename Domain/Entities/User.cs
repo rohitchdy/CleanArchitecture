@@ -11,6 +11,6 @@ public class User
     public string ContactNumber { get; set; } = string.Empty;
     public bool IsActive { get; set; }
     public required List<UserRoles> UserRoles { get; set; }
-    public required Parent Parent { get; set; }
-    public required Employee Employee { get; set; }
+    public Parent? Parent { get; set; }
+    public Employee? Employee { get; set; }
 }

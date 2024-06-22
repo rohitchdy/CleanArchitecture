@@ -37,6 +37,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<A
             ContactNumber = command.ContactNumber,
             UserRoles = new List<UserRoles>()
         };
+
         _userRepository.AddUser(user);
 
         var token = _jwtTokenGenerator.GenerateToken(user);

@@ -9,7 +9,7 @@ public class Municipality
     public Guid DistrictId { get; set; }
     public int WardCount { get; set; }
     public required District District { get; set; }
-    public required List<Student> Students { get; set; }
-    public required List<Employee> Employees { get; set; }
+    public List<Student>? Students { get; set; }
+    public List<Employee>? Employees { get; set; }
 
 }

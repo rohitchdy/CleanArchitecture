@@ -25,5 +25,5 @@ public class Employee
     public bool IsActive { get; set; }
     public required string Status { get; set; }
 
-    public required List<TeacherSubjects> TeacherSubjects { get; set; }
+    public List<TeacherSubjects>? TeacherSubjects { get; set; }
 }

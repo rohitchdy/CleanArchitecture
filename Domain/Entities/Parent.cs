@@ -7,7 +7,7 @@ public class Parent
     public string FirstName { get; set; } = string.Empty;
     public string MiddleName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
-    public string Occupation { get; set; }
+    public string Occupation { get; set; } =string.Empty;
     public Guid? UserId { get; set; }
     public required User User { get; set; }
     public Guid StudentId { get; set; }

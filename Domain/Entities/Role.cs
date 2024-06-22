@@ -5,5 +5,5 @@ public class Role
     public string Name { get; set; } = string.Empty;
     public bool IsAdmin { get; set; }
     public bool IsActive { get; set; }
-    public required List<UserRoles> UserRoles { get; set; }
+    public List<UserRoles>? UserRoles { get; set; }
 }

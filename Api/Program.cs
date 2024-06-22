@@ -33,7 +33,7 @@ try
 
     var scope = app.Services.CreateScope();
     var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
-    dataContext.Database.Migrate();
+    await dataContext.Database.MigrateAsync();
 
     app.UseSession();
 
@@ -54,7 +54,7 @@ try
 
     app.MapControllers();
 
-    app.Run();
+    await app.RunAsync();
 }
 catch (Exception ex)
 {
@@ -62,5 +62,5 @@ catch (Exception ex)
 }
 finally
 {
-    Log.CloseAndFlush();
+    await Log.CloseAndFlushAsync();
 }

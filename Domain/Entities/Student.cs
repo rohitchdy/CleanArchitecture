@@ -21,5 +21,8 @@ public class Student
     public bool IsActive { get; set; }
     public string Status { get; set; } = string.Empty;
 
-    public required List<Parent> Parents { get; set; }
+    public Parent? Parent { get; set; }
+    public Enrollment? Enrollment { get; set; }
+
+    public ExamResult? ExamResult { get; set; }
 }
